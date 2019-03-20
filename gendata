@@ -20,8 +20,7 @@ fi
 # and drop the db on hive
 hdfs_path="/tmp/tpch$1g/"
 hdfs dfs -rm -r -f $hdfs_path
-rm hive_query/*
-touch hive_query/drop_db.hql
+touch drop_db.hql
 echo "drop database if exists tpch$1g cascade"
 hive -f drop_db.hql
 
