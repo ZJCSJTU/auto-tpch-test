@@ -63,6 +63,9 @@ hdfs dfs -put data/$db_path/supplier.tbl /tmp/tpch$1g/supplier/
 
 # create database and tables on hive
 touch create_db.hql
-echo "CREATE DATABASE tpch$1g" > create_db.hql
+echo "CREATE DATABASE tpch$1g;" > create_db.hql
 hive -f create_db.hql
-# create
+# create tables;
+
+touch create_region.hql
+echo "USE tpch$1g; CREATE TABLE region (r_regionkey INT, r_name CHAR(25), r_comment VARCHAR(152), r_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch1g/lineitem/';"
