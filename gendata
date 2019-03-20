@@ -14,6 +14,17 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+# will put the data to hdfs directory
+# /tmp/tpch<size>g/
+# first clear this directory on hdfs
+# and drop the db on hive
+hdfs_path="/tmp/tpch$1g/"
+hdfs dfs -rm -r -f $hdfs_path
+rm hive_query/*
+touch hive_query/drop_db.hql
+echo "drop database if exists tpch$1g cascade"
+hive -f drop_db.hql
+
 # build a directory to hold data
 if [ ! -d "./data/" ]; then
     mkdir data/
@@ -32,3 +43,6 @@ eval $gen_data
 cd ../../
 # pwd
 mv 2.18.0_rc2/dbgen/*.tbl data/$db_path/
+
+# put the data to hdfs
+hdfs dfs -put data/$db_path/*.tbl $hdfs_path
