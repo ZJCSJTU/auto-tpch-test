@@ -21,7 +21,7 @@ fi
 hdfs_path="/tmp/tpch$1g/"
 hdfs dfs -rm -r -f $hdfs_path
 touch drop_db.hql
-echo "drop database if exists tpch$1g cascade"
+echo "drop database if exists tpch$1g cascade" > drop_db.hql
 hive -f drop_db.hql
 
 # build a directory to hold data
