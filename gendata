@@ -68,4 +68,5 @@ hive -f create_db.hql
 # create tables;
 
 touch create_region.hql
-echo "USE tpch$1g; CREATE TABLE region (r_regionkey INT, r_name CHAR(25), r_comment VARCHAR(152), r_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch1g/lineitem/';"
+echo "USE tpch$1g; CREATE TABLE region (r_regionkey INT, r_name CHAR(25), r_comment VARCHAR(152), r_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch1g/lineitem/';" > create_region.hql
+hive -f create_region.hql
