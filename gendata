@@ -44,4 +44,5 @@ cd ../../
 mv 2.18.0_rc2/dbgen/*.tbl data/$db_path/
 
 # put the data to hdfs
+hdfs dfs -mkdir $hdfs_path
 hdfs dfs -put data/$db_path/*.tbl $hdfs_path
