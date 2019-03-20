@@ -1,0 +1,34 @@
+#!/bin/bash
+# gendata
+
+# Stop on errors
+# set -e
+
+# Sanity check command line options
+usage() {
+  printf "Usage: $0 [size]\n"
+}
+
+if [ $# -ne 1 ]; then
+  usage
+  exit 1
+fi
+
+# build a directory to hold data
+if [ ! -d "./data/" ]; then
+    mkdir data/
+fi
+db_path="tpch$1g"
+rm -rf data/$db_path
+mkdir data/$db_path
+echo $db_path
+
+# go to tpch dbgen directory, remove previous tbl files and gen
+cd 2.18.0_rc2/dbgen/
+rm *.tbl
+gen_data="./dbgen -s $1"
+eval $gen_data
+
+cd ../../
+# pwd
+mv 2.18.0_rc2/dbgen/*.tbl data/$db_path/
