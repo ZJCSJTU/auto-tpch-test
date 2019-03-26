@@ -3,7 +3,7 @@ import time
 import sys
 
 filename = sys.argv[1]
-# size = sys.argv[2]
+size = sys.argv[2]
 print(filename)
 verdict = pyverdict.presto('localhost', 'hive', 'jiangchen', port=9080)
 verdict.sql('use tpch10g')
@@ -19,7 +19,7 @@ query = """select
         avg(l_discount) as avg_disc,
         count(*) as count_order
 from
-        tpch10g.lineitem_scramble
+        tpch{}g.lineitem_scramble
 where
         l_shipdate <= date '1998-12-01'
 group by
@@ -27,7 +27,7 @@ group by
         l_linestatus
 order by
         l_returnflag,
-        l_linestatus;"""
+        l_linestatus;""".format(size)
 
 start_time = time.time()
 df = verdict.sql(query)
@@ -51,7 +51,7 @@ query = """bypass select
         avg(l_discount) as avg_disc,
         count(*) as count_order
 from
-        tpch10g.lineitem
+        tpch{}g.lineitem
 where
         l_shipdate <= date '1998-12-01'
 group by
@@ -59,7 +59,7 @@ group by
         l_linestatus
 order by
         l_returnflag,
-        l_linestatus;"""
+        l_linestatus;""".format(size)
 
 
 start_time = time.time()

@@ -3,14 +3,14 @@ import time
 import sys
 
 filename = sys.argv[1]
-
+size = sys.argv[2]
 verdict = pyverdict.presto('localhost', 'hive', 'jiangchen', port=9080)
 # verdict.sql('use tpch10g')
 query = """select
         o_orderpriority,
         count(*) as order_count
 from
-        tpch10g.orders_scramble join tpch10g.lineitem_scramble on l_orderkey = o_orderkey
+        tpch{}g.orders_scramble join tpch{}g.lineitem_scramble on l_orderkey = o_orderkey
 where
         o_orderdate >= date '1993-07-01'
         and o_orderdate < date '1998-12-01'
@@ -18,7 +18,7 @@ where
 group by
         o_orderpriority
 order by
-        o_orderpriority;"""
+        o_orderpriority;""".format(size, size)
 
 
 start_time = time.time()
@@ -34,7 +34,7 @@ query = """bypass select
         o_orderpriority,
         count(*) as order_count
 from
-        tpch10g.orders join tpch10g.lineitem on l_orderkey = o_orderkey
+        tpch{}g.orders join tpch{}g.lineitem on l_orderkey = o_orderkey
 where
         o_orderdate >= date '1993-07-01'
         and o_orderdate < date '1998-12-01'
@@ -42,7 +42,7 @@ where
 group by
         o_orderpriority
 order by
-        o_orderpriority;"""
+        o_orderpriority;""".format(size, size)
 
 start_time = time.time()
 verdict.sql(query)

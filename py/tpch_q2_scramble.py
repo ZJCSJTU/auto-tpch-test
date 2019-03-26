@@ -3,9 +3,9 @@ import time
 import sys
 
 filename = sys.argv[1]
-
+size = sys.argv[2]
 verdict = pyverdict.presto('localhost', 'hive', 'jiangchen', port=9080)
-verdict.sql('use tpch10g')
+verdict.sql('use tpch{}g'.format(size))
 query = """select
   s_acctbal,
   s_name,
@@ -71,11 +71,11 @@ query = """bypass select
   s_phone,
   s_comment
 from
-  tpch10g.part,
-  tpch10g.supplier,
-  tpch10g.partsupp,
-  tpch10g.nation,
-  tpch10g.region
+  tpch{}g.part,
+  tpch{}g.supplier,
+  tpch{}g.partsupp,
+  tpch{}g.nation,
+  tpch{}g.region
 where
   p_partkey = ps_partkey
   and s_suppkey = ps_suppkey
@@ -88,10 +88,10 @@ where
     select
       min(ps_supplycost)
     from
-      tpch10g.partsupp,
-      tpch10g.supplier,
-      tpch10g.nation,
-      tpch10g.region
+      tpch{}g.partsupp,
+      tpch{}g.supplier,
+      tpch{}g.nation,
+      tpch{}g.region
     where
       p_partkey = ps_partkey
       and s_suppkey = ps_suppkey
@@ -104,7 +104,7 @@ order by
   n_name,
   s_name,
   p_partkey
-limit 100;"""
+limit 100;""".format(size, size, size, size, size, size, size, size, size)
 
 start_time = time.time()
 verdict.sql(query)
