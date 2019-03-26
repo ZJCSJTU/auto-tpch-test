@@ -113,12 +113,12 @@ hive -f create_supplier.hql
 
 echo "create table lineitem..."
 touch create_lineitem.hql
-echo "USE tpch$1g; CREATE TABLE lineitem (l_orderkey INT, l_partkey INT, l_suppkey INT, l_linenumber INT, l_quantity DECIMAL, l_extendedprice DECIMAL, l_discount DECIMAL, l_tax DECIMAL, l_returnflag VARCHAR(1), l_linestatus VARCHAR(1), l_shipdate TIMESTAMP, l_commitdate TIMESTAMP, l_receiptdate TIMESTAMP, l_shipinstruct VARCHAR(25), l_shipmode VARCHAR(10), l_comment VARCHAR(44), l_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch$1g/lineitem/';" > create_lineitem.hql
+echo "USE tpch$1g; CREATE TABLE lineitem (l_orderkey INT, l_partkey INT, l_suppkey INT, l_linenumber INT, l_quantity DECIMAL, l_extendedprice DECIMAL, l_discount DECIMAL, l_tax DECIMAL, l_returnflag VARCHAR(1), l_linestatus VARCHAR(1), l_shipdate DATE, l_commitdate DATE, l_receiptdate DATE, l_shipinstruct VARCHAR(25), l_shipmode VARCHAR(10), l_comment VARCHAR(44), l_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch$1g/lineitem/';" > create_lineitem.hql
 hive -f create_lineitem.hql
 
 echo "create table orders..."
 touch create_orders.hql
-echo "USE tpch$1g; CREATE TABLE orders (o_orderkey INT, o_custkey INT, o_orderstatus VARCHAR(1), o_totalprice DECIMAL, o_orderdate TIMESTAMP, o_orderpriority VARCHAR(15), o_clerk VARCHAR(15), o_shippriority INT, o_comment VARCHAR(79), o_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch$1g/orders/';" > create_orders.hql
+echo "USE tpch$1g; CREATE TABLE orders (o_orderkey INT, o_custkey INT, o_orderstatus VARCHAR(1), o_totalprice DECIMAL, o_orderdate DATE, o_orderpriority VARCHAR(15), o_clerk VARCHAR(15), o_shippriority INT, o_comment VARCHAR(79), o_dummy VARCHAR(10)) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' STORED AS TEXTFILE LOCATION '/tmp/tpch$1g/orders/';" > create_orders.hql
 hive -f create_orders.hql
 
 

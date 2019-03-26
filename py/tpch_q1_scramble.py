@@ -3,6 +3,7 @@ import time
 import sys
 
 filename = sys.argv[1]
+# size = sys.argv[2]
 print(filename)
 verdict = pyverdict.presto('localhost', 'hive', 'jiangchen', port=9080)
 verdict.sql('use tpch10g')
